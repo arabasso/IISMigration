@@ -33,7 +33,7 @@ namespace IisMigration
                     username = Username.Substring(index + 1);
                 }
 
-                Execute($"user \"cn={username},cn=Users,dc=sinoinformatica,dc=local\" -disabled no -pwd \"{Password}\" -mustchpwd no -acctexpires never");
+                Execute($"user \"cn={username},cn=Users,dc=sinoinfo,dc=local\" -disabled no -pwd \"{Password}\" -mustchpwd no -acctexpires never");
             }
 
             private static void Execute(string arguments)
@@ -79,7 +79,7 @@ namespace IisMigration
                         }
                         break;
 
-                    case "/import2":
+                    case "/import-users":
                         using (var reader = new StreamReader(file))
                         {
                             var iis = (Iis)serializer.Deserialize(reader);
@@ -95,6 +95,13 @@ namespace IisMigration
                             {
                                 user.Create();
                             }
+                        }
+                        break;
+
+                    case "/import-dirs":
+                        using (var reader = new StreamReader(file))
+                        {
+                            var iis = (Iis)serializer.Deserialize(reader);
 
                             var dirs = iis.Sites
                                 .SelectMany(s => s.Apps)
@@ -103,21 +110,10 @@ namespace IisMigration
                                 .Select(s => s.Key)
                                 .ToList();
 
-                            var replaceList = new List<string>
-                            {
-                                @"W:\Data\",
-                                @"\\sinoinformatica.local\Storage\Data\",
-                                @"\\svwb03\DATA\",
-                                @"\\sinostoragearm.file.core.windows.net\fileswebserver\Sites_srv-iis-01\",
-                                @"C:\SITES\"
-                            };
-
                             foreach (var dir in dirs.Where(w => !Directory.Exists(w)))
                             {
-                                var d = replaceList.Aggregate(dir, (c, r) => Regex.Replace(c, Regex.Escape(r), @"D:\Data\", RegexOptions.IgnoreCase));
-
-                                Directory.CreateDirectory(d);
-                                Console.WriteLine(d);
+                                Directory.CreateDirectory(dir);
+                                Console.WriteLine(dir);
                             }
                         }
                         break;
