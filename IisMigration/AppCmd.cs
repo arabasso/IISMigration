@@ -42,6 +42,14 @@ namespace IisMigration
             return lines;
         }
 
+        public string ExecuteCommand(
+            string arguments)
+        {
+            var process = CreateProcess(arguments);
+
+            return process?.StandardOutput.ReadToEnd();
+        }
+
         private Process CreateProcess(
             string arguments)
         {
@@ -52,12 +60,12 @@ namespace IisMigration
 
             var startInfo = new ProcessStartInfo(_path, arguments)
             {
+                CreateNoWindow = true,
                 UseShellExecute = false,
                 RedirectStandardOutput = true
             };
 
-            var process = Process.Start(startInfo);
-            return process;
+            return Process.Start(startInfo);
         }
     }
 }

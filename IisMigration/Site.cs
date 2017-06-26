@@ -9,6 +9,7 @@ namespace IisMigration
         public string Name { get; set; }
         public string Bindings { get; set; }
         public List<App> Apps { get; set; } = new List<App>();
+        public App App => Apps.First();
 
         public Site()
         {
@@ -30,7 +31,6 @@ namespace IisMigration
             AppCmd appCmd)
         {
             return appCmd.GetLines("list sites /text:name")
-                .AsParallel()
                 .Select(s => new Site(s, appCmd))
                 .ToList();
         }

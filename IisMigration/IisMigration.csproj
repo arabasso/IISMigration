@@ -41,9 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnonymousAuthentication.cs" />
     <Compile Include="App.cs" />
     <Compile Include="AppCmd.cs" />
     <Compile Include="AppPool.cs" />
+    <Compile Include="Authentication.cs" />
     <Compile Include="Iis.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

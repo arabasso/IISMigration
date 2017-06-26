@@ -11,6 +11,7 @@ namespace IisMigration
         public string Username { get; set; }
         public string Password { get; set; }
         public string ManagedRuntimeVersion { get; set; }
+        public string ManagedPipelineMode { get; set; }
         public bool Enable32BitAppOnWin64 { get; set; }
 
         public AppPool()
@@ -29,6 +30,7 @@ namespace IisMigration
             Username = appCmd.GetLine($"list apppool \"{Name}\" /text:processmodel.username");
             Password = appCmd.GetLine($"list apppool \"{Name}\" /text:processmodel.password");
             ManagedRuntimeVersion = appCmd.GetLine($"list apppool \"{Name}\" /text:managedRuntimeVersion");
+            ManagedPipelineMode = appCmd.GetLine($"list apppool \"{Name}\" /text:managedPipelineMode");
             Enable32BitAppOnWin64 = bool.Parse(appCmd.GetLine($"list apppool \"{Name}\" /text:enable32BitAppOnWin64"));
         }
 
@@ -36,7 +38,6 @@ namespace IisMigration
             AppCmd appCmd)
         {
             return appCmd.GetLines("list apppools /text:name")
-                .AsParallel()
                 .Select(s => new AppPool(s, appCmd))
                 .ToList();
         }
