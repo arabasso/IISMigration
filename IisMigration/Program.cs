@@ -16,7 +16,9 @@ namespace IisMigration
             public string Username { get; set; }
             public string Password { get; set; }
 
-            public User(string username, string password)
+            public User(
+                string username,
+                string password)
             {
                 Username = username;
                 Password = password;
@@ -54,7 +56,6 @@ namespace IisMigration
                 Console.WriteLine(result);
             }
         }
-
 
         static void Main(string [] args)
         {
