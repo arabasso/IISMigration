@@ -35,7 +35,7 @@ namespace IisMigration
                     username = Username.Substring(index + 1);
                 }
 
-                Execute($"user \"cn={username},cn=Users,dc=sinoinfo,dc=local\" -disabled no -pwd \"{Password}\" -mustchpwd no -acctexpires never");
+                Execute($"user \"cn={username},cn=Users,dc=contoso,dc=com\" -disabled no -pwd \"{Password}\" -mustchpwd no -acctexpires never");
             }
 
             private static void Execute(string arguments)
