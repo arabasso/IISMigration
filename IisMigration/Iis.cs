@@ -14,23 +14,33 @@ namespace IisMigration
         }
 
         private Iis(
-            AppCmd appCmd)
+            AppCmd appCmd,
+            bool pools = true,
+            bool sites = true)
         {
-            Console.WriteLine("* Application Pools");
-            Console.WriteLine();
+            if (pools)
+            {
+                Console.WriteLine("* Application Pools");
+                Console.WriteLine();
 
-            AppPools = AppPool.ListAll(appCmd);
+                AppPools = AppPool.ListAll(appCmd);
+            }
 
-            Console.WriteLine("* Sites");
-            Console.WriteLine();
+            if (sites)
+            {
+                Console.WriteLine("* Sites");
+                Console.WriteLine();
 
-            Sites = Site.ListAll(appCmd);
+                Sites = Site.ListAll(appCmd);
+            }
         }
 
         public static Iis Export(
-            AppCmd appCmd)
+            AppCmd appCmd,
+            bool pools = true,
+            bool sites = true)
         {
-            return new Iis(appCmd);
+            return new Iis(appCmd, pools, sites);
         }
 
         public void Import(

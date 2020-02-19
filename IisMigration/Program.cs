@@ -125,6 +125,20 @@ namespace IisMigration
                             serializer.Serialize(writer, Iis.Export(appCmd));
                         }
                         break;
+
+                    case "/export-pools":
+                        using (var writer = new StreamWriter(file, false))
+                        {
+                            serializer.Serialize(writer, Iis.Export(appCmd, true, false));
+                        }
+                        break;
+
+                    case "/export-sites":
+                        using (var writer = new StreamWriter(file, false))
+                        {
+                            serializer.Serialize(writer, Iis.Export(appCmd, false));
+                        }
+                        break;
                 }
             }
 
