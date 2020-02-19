@@ -59,7 +59,21 @@ namespace IisMigration
 
         static void Main(string [] args)
         {
-            if (args.Length != 2) return;
+            if (args.Length != 2)
+            {
+                Console.WriteLine("Usage: IisMigration.exe [OPTION]... [FILE]...");
+                Console.WriteLine("Export/Import IIS Configurations.");
+                Console.WriteLine();
+                Console.WriteLine("  {0,-30} Export Pools and Sites.", "/export [FILE.XML]");
+                Console.WriteLine("  {0,-30} Export Pools.", "/export-pools [FILE.XML]");
+                Console.WriteLine("  {0,-30} Export Sites.", "/export-sites [FILE.XML]");
+                Console.WriteLine();
+                Console.WriteLine("  {0,-30} Import configurations", "/import [FILE.XML]");
+                Console.WriteLine("  {0,-30} Import users to Active Directory", "/import-users [FILE.XML]");
+                Console.WriteLine("  {0,-30} Create directory structure from IIS configuration", "/import-dirs [FILE.XML]");
+
+                return;
+            }
 
             try
             {
